@@ -1,39 +1,39 @@
-## Functions that cache the mean of a vector
+## Functions that cache the inverse of a matrix
 ## 
 ## 
-## Create a special "vector", which is a list containing
-## the function:
-## set the value of the vector
-## get the value of the vector
-## set the value of the mean
-## get the value of the mean
+## Create a special "matrix", which is a list containing
+## a function to:
+## set the value of the matrix
+## get the value of the matrix
+## set the value of the inverse matrix
+## get the value of the inverse matrix
 
-makeVector <- function(x = numeric()) {
-        m <- NULL
+makeCacheMatrix <- function(x = matrix()) {
+        i <- NULL
         set <- function(y) {
                 x <<- y
-                m <<- NULL
+                i <<- NULL
         }
         get <- function() x
-        setmean <- function(mean) m <<- mean
-        getmean <- function() m
+        setinverse <- function(inv) m <<- inv
+        getinverse <- function() i
         list(set = set, get = get,
                 setinverse = setinverse,
                 getinverse = getinverse)
 }
 
 
-## Calculate the mean of the special "vector" created with the above function. It first checks
-## to see if the means has already been calculated. If so, it gets the mean from the cache.
+## Calculate the inverse of the special "matrix" created with the above function. It first checks
+## to see if the inverse has already been calculated. If so, it gets the inverse from the cache.
 
-cachemean <- function(x, ...) {
-        m <- x$getinverse()
-        if(!is.null(m)) {
+cacheSolve <- function(x, ...) {
+        i <- x$getinverse()
+        if(!is.null(i)) {
                 message("geting cached data")
-                return(m)
+                return(i)
         }
        m <- x$get()
-       m <- mean(data, ...)
-       x$setinverse(m)
-       m
+       i <- solve(m, ...)
+       x$setinverse(i)
+       i
 }
